@@ -1,4 +1,5 @@
 function getComputerChoice(){
+//Gets a random choice from the computer b/w rock paper scissors
     let randomNumber = Math.floor((Math.random() * 3)+1);
     if (randomNumber == 1){
         return "Rock";
@@ -10,11 +11,13 @@ function getComputerChoice(){
 }
 
 function makeWord(str){
+//Converts the given string such that first letter is capital and rest are lower case
     let result = str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
     return result;
 }
 
 function playRound(playerSelection, computerSelection){
+//Plays 1 round of the game and returns a value b/w 0 1 2 (loss tie win)
     playerSelection = makeWord(playerSelection);
     let victory = 0;
     // victory 0 is player's loss
@@ -73,6 +76,7 @@ function playRound(playerSelection, computerSelection){
 }
 
 function game(){
+//Plays multiple rounds of the game. Prints result after every round. First to 5 wins. Final winner and result is printed.
     let playerScore = 0;
     let computerScore = 0;
     for(let i = 1; playerScore<5 && computerScore<5; i++){
