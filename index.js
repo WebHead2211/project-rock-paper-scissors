@@ -75,7 +75,7 @@ function playRound(playerSelection, computerSelection){
 function game(){
     let playerScore = 0;
     let computerScore = 0;
-    for(let i = 1; i <= 5; i++){
+    for(let i = 1; playerScore<5 && computerScore<5; i++){
         let playerChoice = makeWord(prompt(`Round ${i}! Pick your weapon!`));
         let computerChoice = getComputerChoice();
         let roundResult = playRound(playerChoice, computerChoice);
