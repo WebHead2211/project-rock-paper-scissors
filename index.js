@@ -16,7 +16,7 @@ function makeWord(str){
 
 function playRound(playerSelection, computerSelection){
     playerSelection = makeWord(playerSelection);
-    let victory;
+    let victory = 0;
     // victory 0 is player's loss
     // victory 1 is tie
     // victory 2 is player's win
@@ -57,15 +57,51 @@ function playRound(playerSelection, computerSelection){
                 break;
         }
     }
-    switch(victory){
-        case 0:
-            return `You lose! ${computerSelection} beats ${playerSelection}`;
-            break;
-        case 1:
-            return `Tie! ${computerSelection} equals ${playerSelection}`;
-            break;
-        case 2:
-            return `You win! ${playerSelection} beats ${computerSelection}`;
-            break;
-    } 
+    // switch(victory){
+    //     case 0:
+    //         return `You lose! ${computerSelection} beats ${playerSelection}`;
+    //         break;
+    //     case 1:
+    //         return `Tie! ${computerSelection} equals ${playerSelection}`;
+    //         break;
+    //     case 2:
+    //         return `You win! ${playerSelection} beats ${computerSelection}`;
+    //         break;
+    // }
+    
+    return victory;
+}
+
+function game(){
+    let playerScore = 0;
+    let computerScore = 0;
+    for(let i = 1; i <= 5; i++){
+        let playerChoice = makeWord(prompt(`Round ${i}! Pick your weapon!`));
+        let computerChoice = getComputerChoice();
+        let roundResult = playRound(playerChoice, computerChoice);
+        let result;
+        switch(roundResult){
+            case 0:
+                result = `Computer wins the round! ${computerChoice} beats ${playerChoice}`;
+                computerScore++;
+                break;
+            case 1:
+                result = `Tie! ${computerChoice} equals ${playerChoice}`;
+                playerScore += 0;
+                computerScore += 0;
+                break;
+            case 2:
+                result = `Player wins the round! ${playerChoice} beats ${computerChoice}`;
+                playerScore++;
+                break;
+        }
+        console.log(`Round ${i}: ${result}`);
+    }
+    if (computerScore > playerScore){
+        console.log(`Computer wins the game with a score of ${computerScore}-${playerScore}!`);
+    } else if (computerScore < playerScore){
+        console.log(`Player wins the game with a score of ${playerScore}-${computerScore}!`);
+    } else if (computerScore == playerScore){
+        console.log(`The game ended in a tie with the score ${playerScore}-${computerScore}!`);
+    }
 }
