@@ -1,0 +1,35 @@
+body {
+    background-color: #CAF0F8;
+    margin: 0;
+}
+
+#main-container {
+    height: 100vh;
+    border: 10px solid #90E0EF;
+    text-align: center;
+}
+
+h1 {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 80px;
+    color: #03045E;
+    margin-top: 0;
+}
+
+i {
+    color: #03045E;
+    font-size: 200px !important;
+    margin: 0 50px;
+    border: 10px solid #90E0EF;
+    padding: 50px;
+    border-radius: 50%;
+    transition: all 1s;
+}
+
+i:hover {
+    transform: scale(1.2);
+}
+
+.icon-container {
+    display: inline-block;
+}
