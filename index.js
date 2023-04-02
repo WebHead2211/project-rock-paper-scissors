@@ -75,37 +75,65 @@ function playRound(playerSelection, computerSelection){
     return victory;
 }
 
-function game(){
-//Plays multiple rounds of the game. Prints result after every round. First to 5 wins. Final winner and result is printed.
-    let playerScore = 0;
-    let computerScore = 0;
-    for(let i = 1; playerScore<5 && computerScore<5; i++){
-        let playerChoice = makeWord(prompt(`Round ${i}! Pick your weapon!`));
-        let computerChoice = getComputerChoice();
-        let roundResult = playRound(playerChoice, computerChoice);
-        let result;
-        switch(roundResult){
-            case 0:
-                result = `Computer wins the round! ${computerChoice} beats ${playerChoice}`;
-                computerScore++;
-                break;
-            case 1:
-                result = `Tie! ${computerChoice} equals ${playerChoice}`;
-                playerScore += 0;
-                computerScore += 0;
-                break;
-            case 2:
-                result = `Player wins the round! ${playerChoice} beats ${computerChoice}`;
-                playerScore++;
-                break;
+// function game(){
+// //Plays multiple rounds of the game. Prints result after every round. First to 5 wins. Final winner and result is printed.
+//     let playerScore = 0;
+//     let computerScore = 0;
+//     for(let i = 1; playerScore<5 && computerScore<5; i++){
+//         let playerChoice = makeWord(prompt(`Round ${i}! Pick your weapon!`));
+//         let computerChoice = getComputerChoice();
+//         let roundResult = playRound(playerChoice, computerChoice);
+//         let result;
+//         switch(roundResult){
+//             case 0:
+//                 result = `Computer wins the round! ${computerChoice} beats ${playerChoice}`;
+//                 computerScore++;
+//                 break;
+//             case 1:
+//                 result = `Tie! ${computerChoice} equals ${playerChoice}`;
+//                 playerScore += 0;
+//                 computerScore += 0;
+//                 break;
+//             case 2:
+//                 result = `Player wins the round! ${playerChoice} beats ${computerChoice}`;
+//                 playerScore++;
+//                 break;
+//         }
+//         console.log(`Round ${i}: ${result}`);
+//     }
+//     if (computerScore > playerScore){
+//         console.log(`Computer wins the game with a score of ${computerScore}-${playerScore}!`);
+//     } else if (computerScore < playerScore){
+//         console.log(`Player wins the game with a score of ${playerScore}-${computerScore}!`);
+//     } else if (computerScore == playerScore){
+//         console.log(`The game ended in a tie with the score ${playerScore}-${computerScore}!`);
+//     }
+// }
+
+
+//UI
+
+function output(){
+    let playerChoice = this.textContent;
+    let computerChoice = getComputerChoice();
+    let roundResult = playRound(playerChoice, computerChoice);
+    let result;
+    switch(roundResult){
+        case 0:
+            result = `Computer wins the round! ${computerChoice} beats ${makeWord(playerChoice)}`;
+            break;
+        case 1:
+            result = `Tie! ${computerChoice} equals ${makeWord(playerChoice)}`;
+            
+            break;
+        case 2:
+            result = `Player wins the round! ${makeWord(playerChoice)} beats ${computerChoice}`;
+            
+            break;
         }
-        console.log(`Round ${i}: ${result}`);
-    }
-    if (computerScore > playerScore){
-        console.log(`Computer wins the game with a score of ${computerScore}-${playerScore}!`);
-    } else if (computerScore < playerScore){
-        console.log(`Player wins the game with a score of ${playerScore}-${computerScore}!`);
-    } else if (computerScore == playerScore){
-        console.log(`The game ended in a tie with the score ${playerScore}-${computerScore}!`);
-    }
+        const resultText = document.querySelector('div');
+        resultText.textContent = result;
 }
+
+const buttons = document.querySelectorAll('button');
+buttons.forEach(button => button.addEventListener('click', output));
