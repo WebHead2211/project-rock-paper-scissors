@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rock Paper Scissors!</title>
+    <title>Rock Paper Scissors</title>
     <link rel="stylesheet" href="./style.css">  
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,16 +13,30 @@
 </head>
 <body>
     <div id="main-container">
-        <h1>Rock Paper Scissors!</h1>
-        <div class="icon-container">
-            <i class="fa-regular fa-hand-back-fist" style="width: 200px"></i>
+        <h1>Rock Paper Scissors</h1>
+        <div class="button">
+            <i id="rock" class="fa-regular fa-hand-back-fist hovering icon-container" style="width: 150px"></i>
         </div>
-        <div class="icon-container">
-            <i class="fa-regular fa-hand"></i>
+        <div class="button">
+            <i id="paper" class="fa-regular fa-hand hovering icon-container"></i>
         </div>
-        <div class="icon-container">
-            <i class="fa-regular fa-hand-peace"></i>
+        <div class="button">
+            <i id="scissors" class="fa-regular fa-hand-peace hovering icon-container"></i>
         </div>
+        <div class="choice-container">
+            <div class="choice hidden">
+                <h2 id="player-header">Player</h2>
+                <i id="player-choice-icon"></i>
+                <h2 class="player-score"></h2>
+            </div>
+            <div class="choice hidden">
+                <h2 id="computer-header">Computer</h2>
+                <i id="computer-choice-icon"></i>
+                <h2 class="computer-score"></h2>
+            </div>
+        </div> 
+        <button id="reset-button" class="btn hidden">Play Again</button>  
     </div>
+<script src="./index.js"></script>
 </body>
 </html>

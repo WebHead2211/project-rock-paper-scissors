@@ -60,44 +60,121 @@ function playRound(playerSelection, computerSelection){
                 break;
         }
     }
-    // switch(victory){
-    //     case 0:
-    //         return `You lose! ${computerSelection} beats ${playerSelection}`;
-    //         break;
-    //     case 1:
-    //         return `Tie! ${computerSelection} equals ${playerSelection}`;
-    //         break;
-    //     case 2:
-    //         return `You win! ${playerSelection} beats ${computerSelection}`;
-    //         break;
-    // }
     
     return victory;
 }
 
 //UI
 
-// function output(){
-//     let playerChoice = this.textContent;
-//     let computerChoice = getComputerChoice();
-//     let roundResult = playRound(playerChoice, computerChoice);
-//     let result;
-//     switch(roundResult){
-//         case 0:
-//             result = `Computer wins the round! ${computerChoice} beats ${makeWord(playerChoice)}`;
-//             break;
-//         case 1:
-//             result = `Tie! ${computerChoice} equals ${makeWord(playerChoice)}`;
-            
-//             break;
-//         case 2:
-//             result = `Player wins the round! ${makeWord(playerChoice)} beats ${computerChoice}`;
-            
-//             break;
-//         }
-//         const resultText = document.querySelector('div');
-//         resultText.textContent = result;
-// }
+//Shows player and computer choice (and their current score)
+function showChoice(playerChoice, computerChoice){
+    const playerIcon = document.querySelector('#player-choice-icon');
+    const computerIcon = document.querySelector('#computer-choice-icon');
 
-// const buttons = document.querySelectorAll('button');
-// buttons.forEach(button => button.addEventListener('click', output));
+    switch(playerChoice){
+        case 'rock':
+            playerIcon.setAttribute('class', 'fa-regular fa-hand-back-fist choice-icon');
+            playerIcon.setAttribute('style', 'width: 150px');
+            break;
+        case 'paper':
+            playerIcon.setAttribute('class', 'fa-regular fa-hand choice-icon');
+            break;
+        case 'scissors':
+            playerIcon.setAttribute('class', 'fa-regular fa-hand-peace choice-icon');
+            break;    
+    }
+
+    switch(computerChoice){
+        case 'Rock':
+            computerIcon.setAttribute('class', 'fa-regular fa-hand-back-fist choice-icon');
+            computerIcon.setAttribute('style', 'width: 150px');
+            break;
+        case 'Paper':
+            computerIcon.setAttribute('class', 'fa-regular fa-hand choice-icon');
+            break;
+        case 'Scissors':
+            computerIcon.setAttribute('class', 'fa-regular fa-hand-peace choice-icon');
+            break;    
+    }
+    
+
+    const choiceDisplay = document.querySelectorAll('.choice');
+    choiceDisplay.forEach(div => div.classList.remove('hidden'));
+}
+
+//Plays a round using the button the player clicked
+function playGame(){
+    let playerChoice = this.querySelector('i').getAttribute('id');
+    let computerChoice = getComputerChoice();
+    let roundResult = playRound(playerChoice, computerChoice);
+    let result;
+
+    const playerHeader = document.querySelector('#player-header');
+    const computerHeader = document.querySelector('#computer-header');
+
+    switch(roundResult){
+        case 0:
+            result = `Computer wins the round! ${computerChoice} beats ${makeWord(playerChoice)}`;
+            computerScore++;
+            playerHeader.style.color = 'red';
+            computerHeader.style.color = 'green';
+            break;
+        case 1:
+            result = `Tie! ${computerChoice} equals ${makeWord(playerChoice)}`;
+            playerHeader.style.color = '#03045E';
+            computerHeader.style.color = '#03045E';
+            break;
+        case 2:
+            result = `Player wins the round! ${makeWord(playerChoice)} beats ${computerChoice}`;
+            playerScore++;
+            playerHeader.style.color = 'green';
+            computerHeader.style.color = 'red';
+            break;
+        }
+        const playerScoreDisplay = document.querySelector('.player-score');
+        const computerScoreDisplay = document.querySelector('.computer-score');
+        playerScoreDisplay.textContent = `${playerScore}`;
+        computerScoreDisplay.textContent = computerScore;
+        showChoice(playerChoice, computerChoice);
+        console.log(result);
+
+        if(playerScore == 5 || computerScore == 5){
+            gameOver(playerScore, computerScore);
+        }
+}
+
+//Displays final winner (whoever reached 5 points) and also shows a play again button
+function gameOver(scoreOne, scoreTwo){
+    resetButton.classList.remove('hidden');
+    buttons.forEach(button => button.removeEventListener('click', playGame));
+    const iconContainer = document.querySelectorAll('.icon-container');
+    iconContainer.forEach(container => container.classList.remove('hovering'));
+    title.style.color = 'green';
+    if(scoreOne > scoreTwo){
+        title.textContent = "Player wins the game!";
+    } else {
+        title.textContent = "Computer wins the game!";
+    }
+}
+
+//Resets the game
+function resetGame(){
+    resetButton.classList.add('hidden');
+    title.textContent = "Rock Paper Scissors";
+    title.style.color = '#03045E';
+    computerScore = 0;
+    playerScore = 0;
+    buttons.forEach(button => button.addEventListener('click', playGame));
+    const iconContainer = document.querySelectorAll('.icon-container');
+    iconContainer.forEach(container => container.classList.add('hovering'));
+    const choiceDisplay = document.querySelectorAll('.choice');
+    choiceDisplay.forEach(div => div.classList.add('hidden'));
+}
+
+let computerScore = 0;
+let playerScore = 0;
+const buttons = document.querySelectorAll('.button');
+buttons.forEach(button => button.addEventListener('click', playGame));
+const title = document.querySelector('h1');
+const resetButton = document.querySelector('#reset-button');
+resetButton.addEventListener('click', resetGame);
